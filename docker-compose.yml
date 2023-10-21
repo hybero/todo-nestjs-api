@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+    todo_app:
+        image: postgres:latest
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_PASSWORD=pavol123
+            - POSTGRES_USER=pavolh
+            - POSTGRES_DB=todo_app
