@@ -36,8 +36,7 @@ model List {
     createdAt   DateTime   @default(now())
     updatedAt   DateTime   @updatedAt
     title       String
-    description String
-    deadline    DateTime?
+    description String?
     users       ListUser[]
     tasks       Task[]
 
@@ -63,6 +62,7 @@ model Task {
     authorId  Int
     title     String
     flag      String    @default("active")
+    deadline  DateTime?
     list      List      @relation(fields: [listId], references: [id])
 
     @@map("tasks")
