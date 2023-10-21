@@ -18,8 +18,7 @@ CREATE TABLE "lists" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "deadline" TIMESTAMP(3),
+    "description" TEXT,
 
     CONSTRAINT "lists_pkey" PRIMARY KEY ("id")
 );
@@ -39,8 +38,10 @@ CREATE TABLE "tasks" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "listId" INTEGER NOT NULL,
+    "authorId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "completed" BOOLEAN NOT NULL,
+    "flag" TEXT NOT NULL DEFAULT 'active',
+    "deadline" TIMESTAMP(3),
 
     CONSTRAINT "tasks_pkey" PRIMARY KEY ("id")
 );
