@@ -18,52 +18,52 @@ datasource db {
 }
 
 model User {
-    id          Int        @id @default(autoincrement())
-    createdAt   DateTime   @default(now())
-    updatedAt   DateTime   @updatedAt
-    email       String     @unique
-    hash        String
-    firstName   String?
-    lastName    String?
-    refreshToken String?
-    lists       ListUser[]
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  email       String     @unique
+  hash        String
+  firstName   String?
+  lastName    String?
+  refreshToken String?
+  lists       ListUser[]
 
-    @@map("users")
+  @@map("users")
 }
 
 model List {
-    id          Int        @id @default(autoincrement())
-    createdAt   DateTime   @default(now())
-    updatedAt   DateTime   @updatedAt
-    title       String
-    description String?
-    users       ListUser[]
-    tasks       Task[]
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  title       String
+  description String?
+  users       ListUser[]
+  tasks       Task[]
 
-    @@map("lists")
+  @@map("lists")
 }
 
 model ListUser {
-    id     Int @id @default(autoincrement())
-    userId Int
-    listId Int
-    user   User @relation(fields: [userId], references: [id])
-    list   List @relation(fields: [listId], references: [id])
+  id     Int @id @default(autoincrement())
+  userId Int
+  listId Int
+  user   User @relation(fields: [userId], references: [id])
+  list   List @relation(fields: [listId], references: [id])
 
-    @@unique([userId, listId])
-    @@map("users_lists")
+  @@unique([userId, listId])
+  @@map("users_lists")
 }
 
 model Task {
-    id        Int       @id @default(autoincrement())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    listId    Int
-    authorId  Int
-    title     String
-    flag      String    @default("active")
-    deadline  DateTime?
-    list      List      @relation(fields: [listId], references: [id])
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  listId    Int
+  authorId  Int
+  title     String
+  flag      String    @default("active")
+  deadline  DateTime?
+  list      List      @relation(fields: [listId], references: [id])
 
-    @@map("tasks")
+  @@map("tasks")
 }
