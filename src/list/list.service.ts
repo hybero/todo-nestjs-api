@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { ListDto } from './dto/list.dto';
 import { ListUserDto } from './dto/list-user.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { List } from './type/list.type';
 
 @Injectable()
 export class ListService {
@@ -10,7 +11,7 @@ export class ListService {
         private prisma: PrismaService
     ) {}
 
-    async createList(dto: ListDto, userId: number) {
+    async createList(dto: ListDto, userId: number): Promise<List> {
         // create new list
         const list = await this.prisma.list.create({
             data: {
@@ -43,7 +44,7 @@ export class ListService {
         return modifiedList
     }
 
-    async getAllLists() {
+    async getAllLists(): Promise<List[] | []> {
         // get all lists
         const lists = await this.prisma.list.findMany({
             include: {
@@ -54,6 +55,7 @@ export class ListService {
                 }
             }
         })
+        if(!lists) return []
         // Modify the data structure to exclude unwanted properties from joining table
         const modifiedLists = []
         lists.forEach(list => {
@@ -62,7 +64,7 @@ export class ListService {
         return modifiedLists
     }
 
-    async shareList(dto: ListUserDto, requestingUserId: number) {  
+    async shareList(dto: ListUserDto, requestingUserId: number): Promise<List | { message: string }> {  
         // if list does not exists
         let list = await this.prisma.list.findUnique({
             where: { id: Number(dto.listId) }
@@ -124,7 +126,7 @@ export class ListService {
         return modifiedList
     }
 
-    async getMyLists(userId: number) {
+    async getMyLists(userId: number): Promise<List[] | []> {
         const user = await this.prisma.user.findUnique({
             where: { 
                 id: userId 
@@ -137,6 +139,8 @@ export class ListService {
                 } 
             },
         });
+        // if user has no lists
+        if(user.lists.length === 0) return []
         // extract only details of lists
         const modifiedLists = []
         user.lists.forEach(list => {
@@ -155,10 +159,5 @@ export class ListService {
             });
         }
         return modifiedList
-    }
-
-    // Modify the data structure to exclude unwanted properties from joining table
-    modifyMyListData(lists: any) {
-        const modifiedList = []
     }
 }
