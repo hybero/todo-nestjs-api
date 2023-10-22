@@ -11,6 +11,6 @@ export type Task = {
     description: string,
     flag: string
     deadline: Date
-    list: List
-    user: User
+    list?: List
+    user?: User
 }

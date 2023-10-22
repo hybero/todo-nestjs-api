@@ -55,7 +55,7 @@ export class TaskService {
         return task
     }
 
-    async changeFlag(dto: TaskFlagDto, taskId: number, userId: number) {
+    async changeFlag(dto: TaskFlagDto, taskId: number, userId: number): Promise<Task> {
         // get task with list
         const task = await this.prisma.task.findUnique({
             where: {

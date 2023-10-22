@@ -27,7 +27,7 @@ export class TaskController {
         @Param('taskId', ParseIntPipe) taskId: number,
         @Body() dto: TaskFlagDto,
         @GetCurrentUserId() userId: number
-    ) {
+    ): Promise<Task> {
         return this.taskService.changeFlag(dto, taskId, userId)
     }
 }
