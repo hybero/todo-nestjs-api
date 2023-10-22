@@ -1,3 +1,4 @@
+import { Task } from "src/task/type/task.type";
 import { User } from "src/user/type/user.type";
 
 export type List = {
@@ -7,4 +8,5 @@ export type List = {
     title: string;
     description: string | null;
     users: User[];
+    tasks: Task[];
 }
