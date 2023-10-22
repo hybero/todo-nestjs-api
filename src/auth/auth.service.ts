@@ -5,7 +5,7 @@ import * as argon from "argon2"
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
-import { Tokens } from "./types/tokens.type";
+import { Tokens } from "./type/tokens.type";
 
 @Injectable()
 export class AuthService {
