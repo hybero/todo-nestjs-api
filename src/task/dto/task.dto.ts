@@ -3,7 +3,7 @@ import { IsDateString, IsNotEmpty } from "class-validator"
 
 export class TaskDto {
     @IsNotEmpty()
-    @Type(() => Number) // Transofrmation string to number is not working, don't know why
+    @Type(() => Number) // Transformation string to number is not working, don't know why
     listId: number
 
     @IsNotEmpty()
