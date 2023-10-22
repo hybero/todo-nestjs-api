@@ -52,7 +52,8 @@ export class ListService {
                     include: {
                         user: true
                     }
-                }
+                },
+                tasks: true
             }
         })
         if(!lists) return []
@@ -118,7 +119,8 @@ export class ListService {
                     include: {
                         user: true
                     }
-                }
+                },
+                tasks: true
             }
         })
         // Modify the data structure to exclude unwanted properties from joining table
@@ -134,9 +136,13 @@ export class ListService {
             include: {
                 lists: { 
                     include: {
-                        list: true 
+                        list: {
+                            include: {
+                                tasks: true
+                            }
+                        }
                     }
-                } 
+                }
             },
         });
         // if user has no lists
