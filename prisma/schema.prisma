@@ -27,6 +27,7 @@ model User {
   lastName    String?
   refreshToken String?
   lists       ListUser[]
+  tasks       Task[]
 
   @@map("users")
 }
@@ -55,15 +56,17 @@ model ListUser {
 }
 
 model Task {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  listId    Int
-  authorId  Int
-  title     String
-  flag      String    @default("active")
-  deadline  DateTime?
-  list      List      @relation(fields: [listId], references: [id])
+  id           Int       @id @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  listId       Int
+  userId       Int
+  title        String
+  description  String
+  flag         String    @default("active")
+  deadline     DateTime
+  list         List      @relation(fields: [listId], references: [id])
+  user         User      @relation(fields: [userId], references: [id])
 
   @@map("tasks")
 }
