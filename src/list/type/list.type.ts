@@ -3,10 +3,10 @@ import { User } from "src/user/type/user.type";
 
 export type List = {
     id: number;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     title: string;
     description: string | null;
-    users: User[];
-    tasks: Task[];
+    users?: User[];
+    tasks?: Task[];
 }

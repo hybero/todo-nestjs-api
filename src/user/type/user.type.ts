@@ -5,9 +5,9 @@ export type User = {
     createdAt: Date
     updatedAt: Date
     email: string
-    hash: string
+    hash?: string
     firstName: string | null
     lastName: string | null
-    refreshToken: string
-    lists: List[]
+    refreshToken?: string
+    lists?: List[]
 }
