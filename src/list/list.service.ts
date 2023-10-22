@@ -34,7 +34,16 @@ export class ListService {
             include: {
                 users: {
                     include: {
-                        user: true
+                        user: {
+                            select: {
+                                id: true,
+                                createdAt: true,
+                                updatedAt: true,
+                                email: true,
+                                firstName: true,
+                                lastName: true
+                            }
+                        }
                     }
                 }
             }
@@ -50,10 +59,32 @@ export class ListService {
             include: {
                 users: {
                     include: {
-                        user: true
+                        user: {
+                            select: {
+                                id: true,
+                                createdAt: true,
+                                updatedAt: true,
+                                email: true,
+                                firstName: true,
+                                lastName: true
+                            }
+                        }
                     }
                 },
-                tasks: true
+                tasks: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                createdAt: true,
+                                updatedAt: true,
+                                email: true,
+                                firstName: true,
+                                lastName: true
+                            }
+                        }
+                    }
+                }
             }
         })
         if(!lists) return []
@@ -117,7 +148,16 @@ export class ListService {
             include: {
                 users: {
                     include: {
-                        user: true
+                        user: {
+                            select: {
+                                id: true,
+                                createdAt: true,
+                                updatedAt: true,
+                                email: true,
+                                firstName: true,
+                                lastName: true
+                            }
+                        }
                     }
                 },
                 tasks: true
@@ -138,7 +178,20 @@ export class ListService {
                     include: {
                         list: {
                             include: {
-                                tasks: true
+                                tasks: {
+                                    include: {
+                                        user: {
+                                            select: {
+                                                id: true,
+                                                createdAt: true,
+                                                updatedAt: true,
+                                                email: true,
+                                                firstName: true,
+                                                lastName: true
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
