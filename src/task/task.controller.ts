@@ -4,6 +4,7 @@ import { GetCurrentUserId } from 'src/auth/decorator';
 import { Task } from './type/task.type';
 import { TaskDto } from './dto/task.dto';
 import { TaskFlagDto } from './dto/task-flag.dto';
+import { TaskPipe } from './pipes/task/task.pipe';
 
 @Controller('tasks')
 export class TaskController {
@@ -14,11 +15,12 @@ export class TaskController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     createTask(
-        @Body() dto: TaskDto,
+        @Body(TaskPipe) dto: TaskDto,
         @GetCurrentUserId() userId: number
     ): Promise<Task> {
-        console.log(dto.listId, typeof dto.listId)
-        return this.taskService.createTask(dto, userId)
+        // telling typescript about transformed value types from pipe
+        const listId = dto.listId as unknown as number;
+        return this.taskService.createTask(dto, listId, userId)
     }
     
     @Post(':taskId/changeflag')

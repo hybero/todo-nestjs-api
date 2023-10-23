@@ -10,13 +10,13 @@ export class TaskService {
         private prisma: PrismaService
     ) {}
 
-    async createTask(dto: TaskDto, userId: number): Promise<Task> {
+    async createTask(dto: TaskDto, listId: number, userId: number): Promise<Task> {
         // check if list belongs to user
         const listUser = this.prisma.listUser.findUnique({
             where: {
                 userId_listId: {
                     userId: userId,
-                    listId: Number(dto.listId)
+                    listId: listId
                 }
             }
         })
@@ -24,7 +24,7 @@ export class TaskService {
         // create task
         const task = await this.prisma.task.create({
             data: {
-                listId: Number(dto.listId),
+                listId: listId,
                 title: dto.title,
                 description: dto.description,
                 userId: userId,
