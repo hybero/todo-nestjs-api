@@ -4,6 +4,7 @@ import { ListService } from './list.service';
 import { GetCurrentUserId, Public } from 'src/auth/decorator';
 import { ListUserDto } from './dto/list-user.dto';
 import { List } from './type/list.type';
+import { ListUserPipe } from './pipes/list-user/list-user.pipe';
 
 @Controller('lists')
 export class ListController {
@@ -28,10 +29,13 @@ export class ListController {
     @Post('share')
     @HttpCode(HttpStatus.OK)
     shareList(
-        @Body() dto: ListUserDto,
+        @Body(ListUserPipe) dto: ListUserDto,
         @GetCurrentUserId() requestingUserId: number
     ): Promise<List | { message: string }> {
-        return this.listService.shareList(dto, requestingUserId)
+        // telling typescript about transformed value types from pipe
+        const listId = dto.listId as unknown as number;
+        const userId = dto.userId as unknown as number;        
+        return this.listService.shareList(listId, userId, requestingUserId)
     }
 
     @Get('my')

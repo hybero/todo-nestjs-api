@@ -96,19 +96,19 @@ export class ListService {
         return modifiedLists
     }
 
-    async shareList(dto: ListUserDto, requestingUserId: number): Promise<List | { message: string }> {  
+    async shareList(listId: number, userId: number, requestingUserId: number): Promise<List | { message: string }> {  
         // if list does not exists
         let list = await this.prisma.list.findUnique({
-            where: { id: Number(dto.listId) }
+            where: { id: listId }
         })
         if(!list) throw new NotFoundException('List does not exists')
         // if list does not belongs to requesting user
         list = await this.prisma.list.findFirst({
             where: {
-                id: Number(dto.listId),
+                id: listId,
                 users: {
                     some: {
-                        userId: Number(requestingUserId),
+                        userId: requestingUserId,
                     },
                 },
             },
@@ -116,19 +116,19 @@ export class ListService {
         if(!list) throw new ForbiddenException('List does not belong to the requesting user')
         // if user does not exists
         const user = await this.prisma.user.findUnique({
-            where: { id: Number(dto.userId) }
+            where: { id: userId }
         })
         if(!user) throw new NotFoundException('User does not exist')
         // if user shares list with himself
-        if(Number(dto.userId) === requestingUserId) throw new ConflictException('User can not share list with themselves')
+        if(userId === requestingUserId) throw new ConflictException('User can not share list with themselves')
 
         // Proceed after checks and data validation
         try {
             // create entry in joining table
             const listUser = await this.prisma.listUser.create({
                 data: {
-                    userId: Number(dto.userId),
-                    listId: Number(dto.listId)
+                    userId: userId,
+                    listId: listId
                 }
             })
         } catch(error) {
@@ -143,7 +143,7 @@ export class ListService {
         // get list with users included
         const listWithUsers = await this.prisma.list.findUnique({
             where: {
-                id: Number(dto.listId)
+                id: listId
             },
             include: {
                 users: {
