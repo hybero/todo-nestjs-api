@@ -209,10 +209,10 @@ export class ListService {
     }
 
     // Modify the data structure to exclude unwanted properties from joining table
-    modifyListData(lists: any) {
-        const modifiedList = { ... lists, users: [] }
-        if (lists && lists.users) {
-            modifiedList.users = lists.users.map(listUser => {
+    modifyListData(list: any): List {
+        const modifiedList = { ... list, users: [] }
+        if (list && list.users) {
+            modifiedList.users = list.users.map(listUser => {
                 const { id, userId, listId, ...userDetails } = listUser;
                 return userDetails.user;
             });
