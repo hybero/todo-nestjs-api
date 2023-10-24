@@ -4,6 +4,7 @@ import { ListDto } from './dto/list.dto';
 import { ListUserDto } from './dto/list-user.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { List } from './type/list.type';
+import { ListPrisma } from './type/list-prisma.type';
 
 @Injectable()
 export class ListService {
@@ -209,7 +210,7 @@ export class ListService {
     }
 
     // Modify the data structure to exclude unwanted properties from joining table
-    modifyListData(list: any): List {
+    modifyListData(list: ListPrisma): List {
         const modifiedList = { ... list, users: [] }
         if (list && list.users) {
             modifiedList.users = list.users.map(listUser => {
