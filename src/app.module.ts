@@ -11,7 +11,7 @@ import { AtGuard } from './auth/guard';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true
+            isGlobal: true // Does the same thing as @Global decorator in other services
         }),
         AuthModule, 
         UserModule, 
