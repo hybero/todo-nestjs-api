@@ -7,7 +7,7 @@ In docker-compose.yml change 'POSTGRES_PASSWORD' and 'POSTGRES_USER' to your pre
 
 Rename .env.example to .env
 
-Change 'username' and 'password' to the same as in docker-compose.yml
+Change 'username' and 'password' in .env to the same as in docker-compose.yml
 
 Change 'db_name' in .env to 'todo_app' - has to be same as 'POSTGRES_DB' value in docker-compose.yml
 
