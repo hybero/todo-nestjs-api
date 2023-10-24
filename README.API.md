@@ -231,7 +231,7 @@
     }
 
 ### Request
-#### Post - `http://localhost:3333/tasks/1/changeflag`
+#### Post - `http://localhost:3333/tasks/:taskId/changeflag`
 #### Headers
     Authorization: Bearer {access_token}
 #### Body
