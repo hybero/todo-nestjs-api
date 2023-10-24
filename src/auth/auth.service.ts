@@ -63,7 +63,7 @@ export class AuthService {
         return tokens
     }
 
-    async logout(userId: number) {
+    async logout(userId: number): Promise<void> {
         await this.prisma.user.update({
             where: {
                 id: userId
