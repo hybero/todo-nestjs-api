@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ListDto } from './dto/list.dto';
 import { ListService } from './list.service';
-import { GetCurrentUserId, Public } from 'src/auth/decorator';
+import { GetCurrentUserId, Public } from '../auth/decorator';
 import { ListUserDto } from './dto/list-user.dto';
 import { List } from './type/list.type';
 import { ListUserPipe } from './pipes/list-user/list-user.pipe';

@@ -1,6 +1,6 @@
 import { Controller, Post, HttpCode, HttpStatus, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { GetCurrentUserId } from 'src/auth/decorator';
+import { GetCurrentUserId } from '../auth/decorator';
 import { Task } from './type/task.type';
 import { TaskDto } from './dto/task.dto';
 import { TaskFlagDto } from './dto/task-flag.dto';

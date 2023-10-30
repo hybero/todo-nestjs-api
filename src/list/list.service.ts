@@ -1,5 +1,5 @@
 import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { ListDto } from './dto/list.dto';
 import { ListUserDto } from './dto/list-user.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';

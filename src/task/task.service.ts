@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { TaskDto } from './dto/task.dto';
 import { Task } from './type/task.type';
 import { TaskFlagDto } from './dto/task-flag.dto';
