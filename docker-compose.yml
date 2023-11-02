@@ -8,3 +8,11 @@ services:
             - POSTGRES_PASSWORD=pavol123
             - POSTGRES_USER=pavolh
             - POSTGRES_DB=todo_app
+    test_todo_app:
+        image: postgres:latest
+        ports:
+            - 5435:5432
+        environment:
+            - POSTGRES_PASSWORD=pavol123
+            - POSTGRES_USER=pavolh
+            - POSTGRES_DB=todo_app
