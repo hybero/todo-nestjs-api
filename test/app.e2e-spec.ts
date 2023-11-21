@@ -6,7 +6,6 @@ import * as pactum from 'pactum'
 import { AuthDto } from "src/auth/dto"
 import { EditUserDto } from "src/user/dto"
 import { ListDto } from "src/list/dto/list.dto"
-import { ListUserDto } from "src/list/dto/list-user.dto"
 
 describe('App e2e', () => {
   
@@ -24,12 +23,12 @@ describe('App e2e', () => {
         }))
 
         await app.init()
-        await app.listen(3333)
+        await app.listen(3330)
 
         prisma = app.get(PrismaService)
         await prisma.cleanDb()
 
-        pactum.request.setBaseUrl('http://localhost:3333')
+        pactum.request.setBaseUrl('http://localhost:3330')
     })
 
     afterAll(() => {
