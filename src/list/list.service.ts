@@ -99,12 +99,12 @@ export class ListService {
 
     async shareList(listId: number, userId: number, requestingUserId: number): Promise<List | { message: string }> {  
         // if list does not exists
-        let list = await this.prisma.list.findUnique({
+        const list = await this.prisma.list.findUnique({
             where: { id: listId }
         })
         if(!list) throw new NotFoundException('List does not exists')
         // if list does not belongs to requesting user
-        list = await this.prisma.list.findFirst({
+        const userOwnsList = await this.prisma.list.findFirst({
             where: {
                 id: listId,
                 users: {
@@ -114,7 +114,7 @@ export class ListService {
                 },
             },
         });
-        if(!list) throw new ForbiddenException('List does not belong to the requesting user')
+        if(!userOwnsList) throw new ForbiddenException('List does not belong to the requesting user')
         // if user does not exists
         const user = await this.prisma.user.findUnique({
             where: { id: userId }
