@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
 import { BadRequestException, ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { ListPrisma } from './type/list-prisma.type';
 
 describe('ListService', () => {
     let service: ListService
@@ -243,6 +244,13 @@ describe('ListService', () => {
             expect(result).toEqual(mockUsersListsAfterModify)
 
             expect(prisma.user.findUnique).toHaveBeenCalled()
+        })
+    })
+
+    describe('modifyListData', () => {
+        it('should return modified list data', () => {
+            const result = service.modifyListData(mockCreatedList as unknown as ListPrisma)
+            expect(result).toEqual(mockCreatedListAfterModify)
         })
     })
 });
