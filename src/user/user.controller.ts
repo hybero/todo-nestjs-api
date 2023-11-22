@@ -13,8 +13,8 @@ export class UserController {
     
     @Get('me')
     @HttpCode(HttpStatus.OK)
-    getMe(@GetUser() user: User){
-        return user
+    getMe(@GetCurrentUserId() userId: number){
+        return this.userService.getMe(userId)
     }
 
     @Put()
