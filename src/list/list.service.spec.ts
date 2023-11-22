@@ -154,7 +154,7 @@ describe('ListService', () => {
         it('should throw NotFoundException when no list is found', async () => {
             prisma.list.findUnique = jest.fn().mockReturnValueOnce(false)
 
-            expect(service.shareList(0, 2, 1)).rejects.toThrow(NotFoundException)
+            await expect(service.shareList(0, 2, 1)).rejects.toThrow(NotFoundException)
 
             expect(prisma.list.findUnique).toHaveBeenCalled()
         })
@@ -163,10 +163,10 @@ describe('ListService', () => {
             prisma.list.findUnique = jest.fn().mockReturnValueOnce(mockCreatedList)
             prisma.list.findFirst = jest.fn().mockResolvedValueOnce(false)
 
-            expect(service.shareList(0, 2, 1)).rejects.toThrow(ForbiddenException)
+            await expect(service.shareList(0, 2, 1)).rejects.toThrow(ForbiddenException)
 
             expect(prisma.list.findUnique).toHaveBeenCalled()
-            // expect(prisma.list.findFirst).toHaveBeenCalled()
+            expect(prisma.list.findFirst).toHaveBeenCalled()
         })
 
         it('should throw NotFoundException when user does not exist', async () => {
@@ -174,11 +174,11 @@ describe('ListService', () => {
             prisma.list.findFirst = jest.fn().mockResolvedValueOnce(mockCreatedList)
             prisma.user.findUnique = jest.fn().mockReturnValueOnce(false)
 
-            expect(service.shareList(0, 2, 1)).rejects.toThrow(NotFoundException)
+            await expect(service.shareList(0, 2, 1)).rejects.toThrow(NotFoundException)
 
             expect(prisma.list.findUnique).toHaveBeenCalled()
-            // expect(prisma.list.findFirst).toHaveBeenCalled()
-            // expect(prisma.user.findUnique).toHaveBeenCalled()
+            expect(prisma.list.findFirst).toHaveBeenCalled()
+            expect(prisma.user.findUnique).toHaveBeenCalled()
         })
 
         it('should throw ConflictException when user shares list with themselves', async () => {
@@ -186,11 +186,11 @@ describe('ListService', () => {
             prisma.list.findFirst = jest.fn().mockResolvedValueOnce(mockCreatedList)
             prisma.user.findUnique = jest.fn().mockReturnValueOnce(mockUser)
 
-            expect(service.shareList(0, 2, 2)).rejects.toThrow(ConflictException)
+            await expect(service.shareList(0, 2, 2)).rejects.toThrow(ConflictException)
 
             expect(prisma.list.findUnique).toHaveBeenCalled()
-            // expect(prisma.list.findFirst).toHaveBeenCalled()
-            // expect(prisma.user.findUnique).toHaveBeenCalled()
+            expect(prisma.list.findFirst).toHaveBeenCalled()
+            expect(prisma.user.findUnique).toHaveBeenCalled()
         })
 
         it('should return error with message when duplicate sharing', async () => {
