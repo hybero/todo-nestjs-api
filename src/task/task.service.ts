@@ -12,7 +12,7 @@ export class TaskService {
 
     async createTask(dto: TaskDto, listId: number, userId: number): Promise<Task> {
         // check if list belongs to user
-        const listUser = this.prisma.listUser.findUnique({
+        const listUser = await this.prisma.listUser.findUnique({
             where: {
                 userId_listId: {
                     userId: userId,
