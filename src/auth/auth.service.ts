@@ -84,7 +84,7 @@ export class AuthService {
         // if user was not found throw forbidden exception
         if(!user || !user.refreshToken) throw new ForbiddenException('Access denied')
         // compare sent refresh token with token from database
-        const rtMatches = argon.verify(user.refreshToken, rt)
+        const rtMatches = await argon.verify(user.refreshToken, rt)
         // if tokens dont match throw forbidden exception
         if(!rtMatches) throw new ForbiddenException('Access denied')
         // get tokens
